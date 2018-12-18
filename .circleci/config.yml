@@ -21,7 +21,3 @@ jobs:
           paths:
           - ~/.gradle
           key: gradle-{{ checksum "build.gradle" }}
-
-      - run:
-            name: chmod permissions
-            command: chmod +x ./gradlew
