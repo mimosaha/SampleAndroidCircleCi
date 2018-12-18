@@ -1,0 +1,23 @@
+# Android CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-android/ for more details
+#
+version: 2
+jobs:
+  build:
+    working_directory: ~/SampleAndroidCircleCi
+    docker:
+      - image: circleci/android:api-25-alpha
+    environment:
+      JVM_OPTS: -Xmx4g
+    steps:
+      - checkout
+      - restore_cache:
+          key: gradle-{{ checksum "build.gradle" }}
+      - run:
+          name: Download Dependencies
+          command: ./gradlew androidDependencies
+      - save_cache:
+          paths:
+          - ~/.gradle
+          key: gradle-{{ checksum "build.gradle" }}
